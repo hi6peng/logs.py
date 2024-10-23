@@ -36,7 +36,7 @@ def dmesg_error():
 
 def dmesg_fail():
     print('======================')
-    print('| dmesg | grep error |   Shows kernel fails')
+    print('| dmesg | grep fail |   Shows kernel fails')
     print('======================')
     try:
         os.system('dmesg | grep fail')
