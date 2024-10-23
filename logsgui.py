@@ -3,9 +3,10 @@
 import os
 import sys                           # provides interaction with the Python interpreter
 from functools import partial
-from PyQt4 import QtGui              # provides the graphic elements
-from PyQt4.QtCore import Qt          # provides Qt identifiers
-from PyQt4.QtGui import QPushButton
+from PyQt5 import QtGui, QtWidgets   # provides the graphic elements
+from PyQt5.QtCore import Qt          # provides Qt identifiers
+from PyQt5.QtWidgets import QPushButton
+
 try:
     from sh import inxi
 except:
@@ -45,17 +46,17 @@ def look_in_file(file_name, kws):
         return "".join(filter(lambda line: any(kw in line for kw in kws), f))
 
 
-class Window(QtGui.QWidget):
+class Window(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(Window, self).__init__(parent)
 
         self.checks = [False]*len(checkbuttons)  # initialize all buttons to False
 
         # creates a vertical box layout for the window
-        vlayout = QtGui.QVBoxLayout()
+        vlayout = QtWidgets.QVBoxLayout()
         # creates the checkboxes
         for idx, text in enumerate(checkbuttons):
-            checkbox = QtGui.QCheckBox(text)
+            checkbox = QtWidgets.QCheckBox(text)
             # connects the 'stateChanged()' signal with the 'checkbox_state_changed()' slot
             checkbox.stateChanged.connect(partial(self.checkbox_state_changed, idx))
             vlayout.addWidget(checkbox)  # adds the checkbox to the layout
@@ -176,7 +177,8 @@ class Window(QtGui.QWidget):
         os.system("xdg-open "+TMP_FILE)
 
 # creates the application and takes arguments from the command line
-application = QtGui.QApplication(sys.argv)
+#application = QtGui.QApplication(sys.argv)
+application = QtWidgets.QApplication(sys.argv)
 
 # creates the window and sets its properties
 window = Window()
